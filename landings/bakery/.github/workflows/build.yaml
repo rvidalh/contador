@@ -1,0 +1,23 @@
+name: Deploy to GCS
+on:
+  push:
+    branches: [ main ]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4  # ← v4 es más reciente
+      
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2  # ← Nuevo método de auth
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+      
+      - name: Setup Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2  # ← v2 es más reciente
+      
+      - name: Upload to GCS
+        run: |
+          gsutil -m rsync -r -d \
+            -x ".git/|.github/|node_modules/|.gitignore|README.md" \
+            . gs://bakery-landing
