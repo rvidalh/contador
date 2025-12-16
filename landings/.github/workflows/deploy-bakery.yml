@@ -1,7 +1,9 @@
-name: Deploy to GCS
+name: Deploy bakery to GCS
 on:
   push:
     branches: [ main ]
+    paths: 
+      - 'bakery/**'
 jobs:
   deploy:
     runs-on: ubuntu-latest
