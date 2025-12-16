@@ -3,7 +3,7 @@ on:
   push:
     branches: [ main ]
     paths: 
-      - 'bakery/**'
+      - 'landings/bakery/**'
 jobs:
   deploy:
     runs-on: ubuntu-latest
